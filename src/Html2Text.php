@@ -258,6 +258,28 @@ class Html2Text {
 
 		$name = strtolower($node->nodeName);
 		$nextName = static::nextChildName($node);
+		
+		/**
+		 * plainTextSkip
+		 * skip this node (and all child nodes within)
+		 * if it has an attribute named "plaintextskip"
+		 */
+		if ($node->attributes) // if this node has attributes
+        { 	///debug
+        	//echo "node " . $node->nodeName . " has attribute(s) " . "<br>";
+			foreach ($node->attributes as $attr) 
+			{	///debug
+				//echo "node named " . $node->nodeName . " has attr " . $attr->localName . "=" . $attr->nodeValue . "<br>";
+                
+                if ($attr->localName == "plaintextskip")
+                {	// ignore this node
+                	return "";
+                }
+	        } // end foreach node=>attr        
+        } // end if has attr
+		
+		
+		
 
 		// start whitespace
 		switch ($name) {
